@@ -59,14 +59,19 @@ st.write("---")
 
 st.header("1. O Termômetro da Economia")
 query_geral = """
-    SELECT mes, valor 
-    FROM fato_ipca 
-    WHERE categoria LIKE '%Índice geral%' AND variavel_cod = 63 
-    ORDER BY mes;
+    SELECT 
+        mes, 
+        valor as Valor 
+    FROM 
+        fato_ipca 
+    WHERE
+        categoria LIKE '%Índice geral%' AND variavel_cod = 63 
+    ORDER BY
+        mes;
 """
 df_geral = carregar_dados(query_geral)
 
-fig1 = px.line(df_geral, x='mes', y='valor', markers=True, text='valor')
+fig1 = px.line(df_geral, x='mes', y='Valor', markers=True, text='Valor')
 fig1.update_traces(textposition="top center", line_shape='spline')
 fig1.update_xaxes(dtick="M1", tickformat="%b\n%Y", title="Mês") 
 fig1.update_yaxes(title="Variação Mensal (%)")
@@ -80,12 +85,17 @@ col1, col2 = st.columns(2)
 with col1:
     st.header("2. Os Vilões do Ano")
     query_viloes = """
-        SELECT categoria as Categoria, 
-        SUM(valor) as "Total Acumulado" 
-        FROM fato_ipca 
-        WHERE Categoria NOT LIKE '%Índice geral%' AND variavel_cod = 63
-        GROUP BY Categoria 
-        ORDER BY Total Acumulado DESC 
+        SELECT 
+            categoria as Categoria, 
+            SUM(valor) as "Total Acumulado" 
+        FROM 
+            fato_ipca 
+        WHERE 
+            Categoria NOT LIKE '%Índice geral%' AND variavel_cod = 63
+        GROUP BY 
+            Categoria 
+        ORDER BY "
+            Total Acumulado" DESC 
         LIMIT 6;
     """
     df_viloes = carregar_dados(query_viloes)
@@ -98,17 +108,21 @@ with col1:
 with col2:
     st.header("3. Alimentação x Transportes")
     query_pesos = """
-        SELECT mes, 
-        categoria as Categoria, 
-        valor as Valor
-        FROM fato_ipca 
-        WHERE (categoria LIKE '%Alimentação%' OR categoria LIKE '%Transporte%') 
-          AND variavel_cod = 63
-        ORDER BY mes;
+        SELECT 
+            mes, 
+            categoria as Categoria, 
+            valor as Valor
+        FROM 
+            fato_ipca 
+        WHERE 
+            (categoria LIKE '%Alimentação%' OR categoria LIKE '%Transporte%') 
+            AND variavel_cod = 63
+        ORDER BY 
+            mes;
     """
     df_pesos = carregar_dados(query_pesos)
     
-    fig3 = px.line(df_pesos, x='mes', y='valor', color='categoria', markers=True)
+    fig3 = px.line(df_pesos, x='mes', y='Valor', color='Categoria', markers=True)
     fig3.update_traces(line_shape='spline')
     fig3.update_xaxes(dtick="M2", tickformat="%b %Y", title="Mês") 
     fig3.update_yaxes(title="Variação (%)")
@@ -122,17 +136,24 @@ st.write("---")
 st.header("4. Raio-X do Último Mês")
 # Pega dinamicamente o último mês que existe na base
 query_ultimo = """
-    SELECT categoria, valor 
-    FROM fato_ipca 
-    WHERE mes = (SELECT MAX(mes) FROM fato_ipca)
-      AND categoria NOT LIKE '%Índice geral%' 
-      AND variavel_cod = 63
-      AND valor > 0;
+    SELECT 
+        categoria as Categoria, 
+        valor as Valor 
+    FROM 
+        fato_ipca 
+    WHERE 
+        mes = (SELECT MAX(mes) FROM fato_ipca)
+        AND categoria NOT LIKE '%Índice geral%' 
+        AND variavel_cod = 63
+        AND valor > 0;
 """
+
 df_ultimo = carregar_dados(query_ultimo)
 
-fig4 = px.treemap(df_ultimo, path=[px.Constant("Inflação do Mês"), 'categoria'], values='valor',
-                  color='valor', color_continuous_scale='Blues')
+df_ultimo = df_ultimo.nlargest(15,'Valor')
+
+fig4 = px.treemap(df_ultimo, path=[px.Constant("Inflação do Mês"), 'Categoria'], values='Valor',
+                  color='Valor', color_continuous_scale='Blues')
 fig4.update_traces(textinfo="label+value")
 fig4.update_layout(margin = dict(t=0, l=0, r=0, b=0)) # Remove bordas extras
 st.plotly_chart(fig4, width="stretch")

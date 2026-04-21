@@ -50,6 +50,10 @@ df.rename(columns={
     'Variável (Código)': 'variavel_cod'
 }, inplace=True)
 
+# Limpeza dos códigos: Remove os números e os pontos do início da string da categoria
+
+df['categoria'] = df['categoria'].str.replace(r'^[\d\.]+', '', regex=True).str.strip()
+
 print(df.dtypes)
 
 # %%
