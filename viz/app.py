@@ -5,7 +5,7 @@ import sqlite3
 from pathlib import Path
 
 # Configuração da Página
-st.set_page_config(page_title="Raio-X da Inflação", layout="wide", page_icon="📊")
+st.set_page_config(page_title="IPCA Analytics", layout="wide", page_icon="📊")
 
 # Função para carregar os dados
 @st.cache_data
@@ -51,7 +51,7 @@ with st.sidebar:
 
 # Configuração da área principal (Gráficos)
 
-st.title("História da Inflação Brasileira (Últimos 12 Meses)")
+st.title("Índice Nacional de Preços ao Consumidor Amplo (Últimos 12 Meses)")
 st.markdown("Role a página para acompanhar a evolução do cenário macroeconômico até o detalhe do último mês.")
 st.write("---")
 
