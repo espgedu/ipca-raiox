@@ -54,7 +54,7 @@ Eduardo Pinheiro
 
 Profissional de Dados em formação. Focado em transformar dados brutos em informação útil.
 
-linkedin.com/in/edupinheiro
+[Linkedin](https://linkedin.com/in/edupinheiro)
 
 ## Arquitetura do Projeto
 
