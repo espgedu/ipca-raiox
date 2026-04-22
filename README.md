@@ -50,7 +50,9 @@ streamlit run viz/app.py
 
 Contato e Redes
 
-Eduardo * Profissional de Dados em formação. Focado em transformar dados brutos em informação útil.
+Eduardo Pinheiro
+
+Profissional de Dados em formação. Focado em transformar dados brutos em informação útil.
 
 linkedin.com/in/edupinheiro
 
