@@ -24,25 +24,6 @@ Para que essa análise simplificada chegasse à tela, foi construído um pipelin
 3. **Armazenamento:** Criação de um banco de dados relacional `SQLite` local via `SQLAlchemy`, armazenando a base final limpa (`fato_ipca`) pronta para o consumo da aplicação.
 4. **Visualização:** Interface construída inteiramente em `Streamlit` para a web, com gráficos interativos renderizados em `Plotly`, consumindo os dados diretamente via consultas SQL.
 
-## Arquitetura do Projeto
-
-A organização dos arquivos foi pensada para separar as responsabilidades de processamento de dados de forma simples.
-
-```text
-ipca-raiox/
-│
-├── src/
-│   ├── etl.py                  # Script de extração, tratamento (Pandas) e carga no banco de dados
-│   └── inflacao_brasil.db      # Banco de dados SQLite contendo a tabela 'fato_ipca'
-│
-├── viz/
-│   └── app.py                  # Aplicação web principal gerando o dashboard com Streamlit e Plotly
-│
-├── requirements.txt            # Lista de dependências Python para o deploy
-└── README.md                   # Documentação do projeto
-
----
-
 ## Como executar o projeto localmente
 
 Para testar a extração de dados e visualizar o dashboard na sua máquina, siga os passos:
@@ -72,3 +53,23 @@ Contato e Redes
 Eduardo * Profissional de Dados em formação. Focado em transformar dados brutos em informação útil.
 
 linkedin.com/in/edupinheiro
+
+## Arquitetura do Projeto
+
+A organização dos arquivos foi pensada para separar as responsabilidades de processamento de dados de forma simples.
+
+```text
+ipca-raiox/
+│
+├── src/
+│   ├── etl.py                  # Script de extração, tratamento (Pandas) e carga no banco de dados
+│   └── inflacao_brasil.db      # Banco de dados SQLite contendo a tabela 'fato_ipca'
+│
+├── viz/
+│   └── app.py                  # Aplicação web principal gerando o dashboard com Streamlit e Plotly
+│
+├── requirements.txt            # Lista de dependências Python para o deploy
+└── README.md                   # Documentação do projeto
+
+---
+
